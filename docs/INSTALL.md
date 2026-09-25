@@ -40,10 +40,23 @@ dbcache=1024
 
 **Use the project's chain snapshot.** Validating 4.6M+ multi-algo blocks from genesis is slow. The project publishes a bootstrap at
 `https://coin.mateable.com/download/coin/mateable-bootstrap-20260513.zip` (a `blocks/` directory only, no `chainstate/`): unpack it
-into the data directory and start the node once with `-reindex` (chainstate must be rebuilt from the blocks since none is included;
-`-reindex-chainstate` alone will refuse to run together with `txindex=1` -- either build the UTXO set with `txindex` disabled first,
-or use the slower full `-reindex` directly). The node then catches up the remaining weeks of blocks over P2P by itself
+into the data directory and start the node once with `-reindex` to rebuild the chainstate from the blocks. **Gotcha:** this fork sets
+`static const bool DEFAULT_TXINDEX = true;` in `src/validation.h` (upstream Bitcoin Core defaults this to `false`) -- so `-reindex`
+silently also builds a full transaction index unless you put `txindex=0` in the conf explicitly, and `-reindex-chainstate` (the
+lighter, UTXO-only rebuild) will always refuse with "not compatible with -txindex" once *any* prior run has persisted
+`fTxIndex=true` into the block index database, even after you remove `txindex=1` from the conf again -- the only fix at that point is
+to delete `blocks/index/` and `chainstate/` (not the raw `blk*.dat`/`rev*.dat`, those are reusable) and reindex fully from scratch
+with `txindex=0` set from the very first run. With `txindex=0` set correctly, a full `-reindex` connects the (mostly tiny,
+coinbase-only) blocks at well over 1000/s once its one-time block-file indexing pass finishes, so bootstrap + reindex is a matter of
+minutes to tens of minutes, not hours. The node then catches up the remaining weeks of blocks over P2P by itself
 (`mateable-cli getblockchaininfo`). Block templates are served once `initialblockdownload` is false.
+
+**No default wallet.** This fork, like modern Bitcoin Core, no longer auto-creates a wallet. Also, `dumpwallet`/`importwallet` (the
+legacy dump format) only work on legacy (BDB) wallets, and this build has no BDB support (only sqlite/descriptor wallets) -- so back
+up a descriptor wallet with `backupwallet <file>` (the sqlite file) *and* `listdescriptors true` (the human-readable equivalent of a
+dump, includes the private descriptors). Create the wallet once with `createwallet "" false false "" false true` (empty name, so it
+stays reachable at the RPC root path `/` the same way `mtbcRpc.js` calls it, no `options.wallet` needed) and put `wallet=` (blank) in
+`mtbc.conf` so it auto-loads on every future start.
 
 MateableCoin's `getblocktemplate` needs **both** the segwit rule **and an explicit algorithm**, since the coin is multi-algorithm:
 
