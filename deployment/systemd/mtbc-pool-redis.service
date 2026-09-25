@@ -1,0 +1,14 @@
+[Unit]
+Description=Redis for the MateableCoin pool (127.0.0.1:6388, AOF)
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/redis-server /root/claude/mtbc/redis.conf
+Restart=always
+RestartSec=3
+LimitNOFILE=10032
+TimeoutStopSec=60
+
+[Install]
+WantedBy=multi-user.target

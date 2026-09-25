@@ -1,0 +1,19 @@
+[Unit]
+Description=MateableCoin node (mateabled, runs in the Debian 12 chroot of the ric node: built with gcc 12 and its own depends)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+RootDirectory=/root/claude/ric/chroot
+MountAPIVFS=yes
+BindPaths=/root/claude/mtbc/data:/mtbcdata
+ExecStart=/usr/local/bin/mateabled -datadir=/mtbcdata -conf=/mtbcdata/mtbc.conf -printtoconsole
+Nice=10
+Restart=on-failure
+RestartSec=30
+LimitNOFILE=65536
+TimeoutStopSec=180
+
+[Install]
+WantedBy=multi-user.target

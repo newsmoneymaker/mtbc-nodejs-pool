@@ -1,0 +1,15 @@
+[Unit]
+Description=MateableCoin pool: payment processor
+After=mtbc-pool-redis.service mtbc-node.service
+Requires=mtbc-pool-redis.service
+
+[Service]
+Type=simple
+WorkingDirectory=/root/claude/mtbc-nodejs-pool
+ExecStart=/usr/local/bin/node /root/claude/mtbc-nodejs-pool/init.js -module=payments
+Restart=always
+RestartSec=5
+TimeoutStopSec=30
+
+[Install]
+WantedBy=multi-user.target
