@@ -24,10 +24,10 @@ var allPoolsUrl = "https://all.pool-pay.com/";      // link to the page listing 
 var marketCurrencies = [];
 
 // Block explorer links ({id} = block hash or height / transaction id)
-var blockchainExplorer = "https://explorer.mateablecoin.info/block/{id}";
+var blockchainExplorer = "https://explorer.mateable.com/block/{id}";
 // the explorer opens a block by its hash or its height; "height" is the default
 var blockExplorerId = "hash";
-var transactionExplorer = "https://explorer.mateablecoin.info/tx/{id}";
+var transactionExplorer = "https://explorer.mateable.com/tx/{id}";
 
 // Theme and default language ("en" or "ru")
 var themeCss = "themes/default.css";

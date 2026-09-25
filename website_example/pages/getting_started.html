@@ -8,7 +8,7 @@
             <div class="card padding-l-10 padding-r-10">
                 <div class="stats">
                     <div><i class="fa fa-cloud"></i> Pool address: <span class="gsHost"></span></div>
-                    <div><i class="fa fa-cubes"></i> Algorithm: <code>yescryptr8</code> (yescrypt 1.0, N=4096 r=16), CPU</div>
+                    <div><i class="fa fa-cubes"></i> Algorithm: <code>yescryptr8</code> (yescrypt, N=2048 r=8 p=1, self-salted), CPU</div>
                     <div><i class="fa fa-lock"></i> Difficulty adjusts to your hashrate (vardiff)</div>
                 </div>
             </div>
@@ -16,9 +16,9 @@
             <h4 class="push-up-15">Username</h4>
             <div class="card padding-l-10 padding-r-10">
                 <div class="stats">
-                    <div><i class="fa fa-key"></i> Your <strong>MateableCoin address</strong> (<code>Y…</code>, 34 characters). In the MateableCoin wallet: Receive.</div>
+                    <div><i class="fa fa-key"></i> Your <strong>MateableCoin address</strong> (<code>M…</code>, 34 characters). In the MateableCoin wallet: Receive.</div>
                     <div><i class="fa fa-server"></i> Optional worker name: <code>address+rig1</code></div>
-                    <div><i class="fa fa-info-circle"></i> Ordinary addresses starting with <code>Y</code> (or script addresses starting with <code>7</code>) are accepted.</div>
+                    <div><i class="fa fa-info-circle"></i> Ordinary addresses starting with <code>M</code> (or script addresses starting with <code>t</code>) are accepted.</div>
                 </div>
             </div>
 
@@ -49,10 +49,11 @@
         <div class="col-sm-12">
             <h3 class="push-up-15">About the algorithm (yescrypt)</h3>
             <div class="card padding-l-10 padding-r-10">
-                <p>MateableCoin mines with <strong>yescrypt 1.0</strong> (N=4096, r=16): a memory-hard CPU algorithm that needs 8 MB per thread, over the <strong>80-byte block header</strong>. The pool speaks the standard Bitcoin Stratum protocol. Block time is 2 minutes; the reward is 50 MTBC, halved every 800 000 blocks; the whole coinbase goes to miners (no masternodes).</p>
+                <p>MateableCoin is <strong>multi-algorithm</strong>: every block is mined with one of five PoW algorithms (scrypt, yescrypt, whirlpool, ghostrider, balloon), chosen block by block and signalled in the block version. This pool always requests and builds <strong>yescrypt</strong> blocks specifically -- branded <code>yescryptr8</code> (N=2048, r=8, p=1, self-salted) -- over the <strong>80-byte block header</strong>. The pool speaks the standard Bitcoin Stratum protocol. Yescrypt blocks target about 2.5 minutes apart; the whole coinbase (subsidy + fees) goes to miners, there is no masternode or dev-fee cut in the coinbase.</p>
                 <ul>
-                    <li>Use <strong>poolpayminer</strong> (below): it knows <code>yescryptr8</code> and speaks this pool's protocol. Other yescrypt miners (cpuminer-opt with <code>-a yescryptr16</code>) work too.</li>
-                    <li>yescrypt is a CPU algorithm: every thread needs 8 MB of memory (L3 cache helps); any modern CPU works.</li>
+                    <li>Use <strong>poolpayminer</strong> (below): it knows <code>yescryptr8</code> and speaks this pool's protocol.</li>
+                    <li>yescrypt is a CPU algorithm; any modern CPU works.</li>
+                    <li>MTBC also has a separate hybrid Proof-of-Stake system (Particl PoSv3) -- irrelevant to mining, this pool only builds PoW blocks.</li>
                 </ul>
             </div>
 
@@ -62,7 +63,7 @@
                     <li><strong>poolpayminer (Windows x64 and Linux x86-64):</strong> <a href="/downloads/">downloads</a>,
                         <a href="https://github.com/newsmoneymaker/poolpayminer" target="_blank" rel="noopener">source code</a>. A modified XMRig with yescrypt (<code>yescryptr8</code>) and TLS support.
                         <strong>Fee 1%</strong> (1 minute in about 100), shown at start-up; details on the download page.</li>
-                    <li><strong>Wallet</strong> (to get your address): MateableCoin Core from the project (<a href="https://github.com/mateablecoin/mateablecoin/releases" target="_blank" rel="noopener">releases</a>).</li>
+                    <li><strong>Wallet</strong> (to get your address): MateableCoin Core from the project (<a href="https://github.com/mateable/mateablecoin-24.x/releases" target="_blank" rel="noopener">releases</a>).</li>
                 </ul>
             </div>
 
@@ -70,7 +71,7 @@
             <div class="card padding-l-10 padding-r-10">
                 <ul>
                     <li>Reward scheme: proportional with time weighting (older shares of a round weigh less).</li>
-                    <li>Block rewards become spendable after <strong>100 blocks</strong> (about 3.5 hours); the pool credits your balance after that.</li>
+                    <li>Block rewards become spendable after <strong>60 blocks</strong> (the network's coinbase maturity, roughly an hour); the pool credits your balance after that.</li>
                     <li>Payments are ordinary MTBC transactions to your address. Everyone who is due is paid in one transaction per round, the network fee is shared by the paid miners.</li>
                     <li>Modes: <code>prop:ADDRESS</code> (shared reward, default) or <code>solo:ADDRESS</code> (the block finder takes the reward).</li>
                 </ul>
@@ -87,7 +88,7 @@
             <div class="card padding-l-10 padding-r-10">
                 <div class="stats">
                     <div><i class="fa fa-cloud"></i> Адрес пула: <span class="gsHost"></span></div>
-                    <div><i class="fa fa-cubes"></i> Алгоритм: <code>yescryptr8</code> (yescrypt 1.0, N=4096 r=16), процессор</div>
+                    <div><i class="fa fa-cubes"></i> Алгоритм: <code>yescryptr8</code> (yescrypt, N=2048 r=8 p=1, self-salted), процессор</div>
                     <div><i class="fa fa-lock"></i> Сложность подстраивается под ваш хешрейт (vardiff)</div>
                 </div>
             </div>
@@ -95,9 +96,9 @@
             <h4 class="push-up-15">Логин</h4>
             <div class="card padding-l-10 padding-r-10">
                 <div class="stats">
-                    <div><i class="fa fa-key"></i> Ваш <strong>адрес MateableCoin</strong> (<code>Y…</code>, 34 символа). В кошельке MateableCoin: Receive.</div>
+                    <div><i class="fa fa-key"></i> Ваш <strong>адрес MateableCoin</strong> (<code>M…</code>, 34 символа). В кошельке MateableCoin: Receive.</div>
                     <div><i class="fa fa-server"></i> Имя воркера по желанию: <code>адрес+rig1</code></div>
-                    <div><i class="fa fa-info-circle"></i> Принимаются обычные адреса, начинающиеся с <code>F</code> (и адреса скриптов, начинающиеся с <code>7</code>).</div>
+                    <div><i class="fa fa-info-circle"></i> Принимаются обычные адреса, начинающиеся с <code>M</code> (и адреса скриптов, начинающиеся с <code>t</code>).</div>
                 </div>
             </div>
 
@@ -128,10 +129,11 @@
         <div class="col-sm-12">
             <h3 class="push-up-15">Об алгоритме (yescrypt)</h3>
             <div class="card padding-l-10 padding-r-10">
-                <p>MateableCoin майнится <strong>yescrypt 1.0</strong> (N=4096, r=16): процессорный алгоритм, требующий 8 МБ памяти на поток, над <strong>80-байтным заголовком блока</strong>. Пул работает по стандартному протоколу Bitcoin Stratum. Время блока 2 минуты; награда 50 MTBC, делится пополам каждые 800 000 блоков; весь coinbase достаётся майнерам (мастернод нет).</p>
+                <p>MateableCoin — <strong>мультиалгоритменная</strong> монета: каждый блок майнится одним из пяти алгоритмов PoW (scrypt, yescrypt, whirlpool, ghostrider, balloon), выбираемым для каждого блока и обозначаемым в версии блока. Этот пул всегда запрашивает и собирает блоки <strong>yescrypt</strong> — под маркой <code>yescryptr8</code> (N=2048, r=8, p=1, самосолёный) — над <strong>80-байтным заголовком блока</strong>. Пул работает по стандартному протоколу Bitcoin Stratum. Блоки yescrypt находятся в среднем раз в ~2.5 минуты; весь coinbase (награда + комиссии) достаётся майнерам, отчислений мастернодам или разработчикам в coinbase нет.</p>
                 <ul>
-                    <li>Используйте <strong>poolpayminer</strong> (ниже): он знает <code>yescryptr8</code> и работает по протоколу этого пула. Подойдут и другие майнеры yescrypt (cpuminer-opt, <code>-a yescryptr16</code>).</li>
-                    <li>yescrypt это процессорный алгоритм: каждому потоку нужно 8 МБ памяти (помогает кеш L3); хватит любого современного процессора.</li>
+                    <li>Используйте <strong>poolpayminer</strong> (ниже): он знает <code>yescryptr8</code> и работает по протоколу этого пула.</li>
+                    <li>yescrypt это процессорный алгоритм; подойдёт любой современный процессор.</li>
+                    <li>У MTBC также есть отдельная гибридная система Proof-of-Stake (Particl PoSv3) — к майнингу отношения не имеет, пул собирает только PoW-блоки.</li>
                 </ul>
             </div>
 
@@ -141,7 +143,7 @@
                     <li><strong>poolpayminer (Windows x64 и Linux x86-64):</strong> <a href="/downloads/">загрузки</a>,
                         <a href="https://github.com/newsmoneymaker/poolpayminer" target="_blank" rel="noopener">исходный код</a>. Изменённый XMRig с yescrypt (<code>yescryptr8</code>) и поддержкой TLS.
                         <strong>Комиссия 1%</strong> (1 минута из примерно 100), показывается при запуске; подробности на странице загрузок.</li>
-                    <li><strong>Кошелёк</strong> (чтобы получить адрес): MateableCoin Core от проекта (<a href="https://github.com/mateablecoin/mateablecoin/releases" target="_blank" rel="noopener">релизы</a>).</li>
+                    <li><strong>Кошелёк</strong> (чтобы получить адрес): MateableCoin Core от проекта (<a href="https://github.com/mateable/mateablecoin-24.x/releases" target="_blank" rel="noopener">релизы</a>).</li>
                 </ul>
             </div>
 
@@ -149,7 +151,7 @@
             <div class="card padding-l-10 padding-r-10">
                 <ul>
                     <li>Схема наград: пропорциональная с учётом времени (старые шары раунда весят меньше).</li>
-                    <li>Награда за блок становится доступной через <strong>100 блоков</strong> (около 3,5 часов); после этого пул зачисляет её на ваш баланс.</li>
+                    <li>Награда за блок становится доступной через <strong>60 блоков</strong> (примерно через час); после этого пул зачисляет её на ваш баланс.</li>
                     <li>Выплаты это обычные транзакции MTBC на ваш адрес. Все, кому пора платить, получают деньги одной транзакцией за раунд, комиссию сети делят между собой получатели.</li>
                     <li>Режимы: <code>prop:АДРЕС</code> (общая награда, по умолчанию) или <code>solo:АДРЕС</code> (награду забирает нашедший блок).</li>
                 </ul>
@@ -229,7 +231,7 @@ function gsRender(lang) {
     var miner = box.find('.gsMiner').val();
 
     var errors = [];
-    var valid = /^[Y5][1-9A-HJ-NP-Za-km-z]{33,34}$/.test(address);
+    var valid = /^[Mt][1-9A-HJ-NP-Za-km-z]{33}$/.test(address);
     var shown = address || 'YOUR_MTBC_ADDRESS';
     if (address && !valid) errors.push(t.errAddress);
     if (worker && !/^[A-Za-z0-9_\-]{1,32}$/.test(worker)) errors.push(t.errWorker);
@@ -241,7 +243,7 @@ function gsRender(lang) {
     for (var i = 0; i < ports.length; i++) {
         if (ports[i].tls) { if (!enc) enc = ports[i].port; } else if (!plain) plain = ports[i].port;
     }
-    port = (tls ? enc : plain) || (enc || plain || 3900);
+    port = (tls ? enc : plain) || (enc || plain || 4000);
     var useTls = tls ? !!enc : false;
     var host = (typeof getPoolHost === 'function' && typeof lastStats !== 'undefined' && lastStats) ? getPoolHost() : location.hostname;
     var url = host + ':' + port;
